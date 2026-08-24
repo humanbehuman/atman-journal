@@ -19,12 +19,12 @@ pub fn set_bundled_templates_dir(path: PathBuf) {
 /// Get the user's custom templates directory path
 ///
 /// Returns the platform-specific application data directory for custom templates:
-/// - macOS: ~/Library/Application Support/Meetily/templates/
-/// - Windows: %APPDATA%\Meetily\templates\
-/// - Linux: ~/.config/Meetily/templates/
+/// - macOS: ~/Library/Application Support/AtmanJournal/templates/
+/// - Windows: %APPDATA%\AtmanJournal\templates\
+/// - Linux: ~/.config/AtmanJournal/templates/
 fn get_custom_templates_dir() -> Option<PathBuf> {
     let mut path = dirs::data_dir()?;
-    path.push("Meetily");
+    path.push("AtmanJournal");
     path.push("templates");
     Some(path)
 }

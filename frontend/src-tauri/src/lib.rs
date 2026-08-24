@@ -409,7 +409,9 @@ pub fn run() {
         .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(tauri_plugin_dialog::init())
-        .plugin(tauri_plugin_updater::Builder::new().build())
+        // Updater plugin intentionally NOT registered: Atman Journal must never
+        // auto-update from upstream meetily releases. The frontend updateService
+        // short-circuits to "no update available" without calling the plugin.
         .plugin(tauri_plugin_process::init())
         .manage(whisper_engine::parallel_commands::ParallelProcessorState::new())
         .manage(Arc::new(RwLock::new(

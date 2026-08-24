@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Meetily',
-  description: 'AI-powered meeting assistant',
+  title: 'Atman Journal',
+  description: 'Private voice journaling — capture how you feel, locally.',
 };

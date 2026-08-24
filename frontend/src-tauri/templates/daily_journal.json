@@ -1,0 +1,41 @@
+{
+  "name": "Daily Journal",
+  "description": "Turn a spoken journal entry into a reflective daily digest — feelings, experiences, and gentle prompts.",
+  "sections": [
+    {
+      "title": "Entry Summary",
+      "instruction": "Write a brief, warm summary of this journal entry in second person ('You talked about...'), capturing the overall arc of what the writer shared.",
+      "format": "paragraph"
+    },
+    {
+      "title": "How You Felt",
+      "instruction": "List the emotions and moods the writer expressed, each paired with what prompted it. Include mixed or conflicting feelings. Use the writer's own emotional vocabulary where possible, and never diagnose or apply labels beyond what was said.",
+      "format": "list"
+    },
+    {
+      "title": "Experiences & Moments",
+      "instruction": "List the notable events, experiences, and moments described, in the order they were shared.",
+      "format": "list"
+    },
+    {
+      "title": "People",
+      "instruction": "List the people mentioned and the context in which each came up.",
+      "format": "list"
+    },
+    {
+      "title": "Gratitude & Wins",
+      "instruction": "List anything the writer expressed gratitude for, felt proud of, or counted as a win, however small.",
+      "format": "list"
+    },
+    {
+      "title": "On Your Mind",
+      "instruction": "List open worries, unresolved questions, or things the writer said they were still processing.",
+      "format": "list"
+    },
+    {
+      "title": "Reflection Prompts",
+      "instruction": "Write 2-3 gentle, open-ended questions for the writer to sit with, grounded in what they actually shared. This is the only section where you may generate new content rather than extract it",
+      "format": "list"
+    }
+  ]
+}

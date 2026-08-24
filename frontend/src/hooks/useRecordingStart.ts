@@ -46,7 +46,7 @@ export function useRecordingStart(
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
-    return `Meeting ${day}_${month}_${year}_${hours}_${minutes}_${seconds}`;
+    return `Journal ${day}_${month}_${year}_${hours}_${minutes}_${seconds}`;
   }, []);
 
   // Check if Parakeet transcription model is ready

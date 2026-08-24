@@ -1,0 +1,36 @@
+{
+  "name": "Deep Reflection",
+  "description": "For longer, introspective entries — emotional landscape, themes, insights, and intentions.",
+  "sections": [
+    {
+      "title": "Entry Summary",
+      "instruction": "Write a brief, warm summary of this journal entry in second person ('You explored...'), capturing the overall arc of what the writer worked through.",
+      "format": "paragraph"
+    },
+    {
+      "title": "Emotional Landscape",
+      "instruction": "Describe the emotional tone of the entry and how it shifted as the writer spoke. Stay close to the feelings actually expressed; never diagnose or apply labels beyond what was said.",
+      "format": "paragraph"
+    },
+    {
+      "title": "Themes",
+      "instruction": "List the recurring themes or threads running through this entry.",
+      "format": "list"
+    },
+    {
+      "title": "Insights & Realizations",
+      "instruction": "List the realizations, shifts in perspective, or moments of clarity the writer articulated.",
+      "format": "list"
+    },
+    {
+      "title": "Intentions",
+      "instruction": "List anything the writer said they want to do, change, try, or let go of.",
+      "format": "list"
+    },
+    {
+      "title": "Reflection Prompts",
+      "instruction": "Write 2-3 gentle, open-ended questions for the writer to sit with, grounded in what they actually shared. This is the only section where you may generate new content rather than extract it",
+      "format": "list"
+    }
+  ]
+}

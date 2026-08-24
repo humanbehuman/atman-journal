@@ -29,7 +29,7 @@ export function EmptyStateSummary({ onGenerate, hasModel, isGenerating = false }
         No Summary Generated Yet
       </h3>
       <p className="text-sm text-gray-500 mb-6 max-w-md">
-        Generate an AI-powered summary of your meeting transcript to get key points, action items, and decisions.
+        Generate a reflective digest of this journal entry — how you felt, what happened, and gentle prompts to sit with.
       </p>
 
       <TooltipProvider>

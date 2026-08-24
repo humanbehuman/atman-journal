@@ -3,6 +3,12 @@
 /// These templates are bundled into the binary and serve as fallbacks
 /// when custom templates are not available.
 
+/// Daily journal template — the default for spoken journal entries
+pub const DAILY_JOURNAL: &str = include_str!("../../../templates/daily_journal.json");
+
+/// Deep reflection template for longer introspective entries
+pub const REFLECTION: &str = include_str!("../../../templates/reflection.json");
+
 /// Daily standup template for engineering/product teams
 pub const DAILY_STANDUP: &str = include_str!("../../../templates/daily_standup.json");
 
@@ -14,6 +20,8 @@ pub const STANDARD_MEETING: &str = include_str!("../../../templates/standard_mee
 /// Maps template identifiers to their embedded JSON content
 pub fn get_builtin_templates() -> Vec<(&'static str, &'static str)> {
     vec![
+        ("daily_journal", DAILY_JOURNAL),
+        ("reflection", REFLECTION),
         ("daily_standup", DAILY_STANDUP),
         ("standard_meeting", STANDARD_MEETING),
     ]
@@ -28,6 +36,8 @@ pub fn get_builtin_templates() -> Vec<(&'static str, &'static str)> {
 /// The template JSON content if found, None otherwise
 pub fn get_builtin_template(id: &str) -> Option<&'static str> {
     match id {
+        "daily_journal" => Some(DAILY_JOURNAL),
+        "reflection" => Some(REFLECTION),
         "daily_standup" => Some(DAILY_STANDUP),
         "standard_meeting" => Some(STANDARD_MEETING),
         _ => None,
@@ -36,7 +46,7 @@ pub fn get_builtin_template(id: &str) -> Option<&'static str> {
 
 /// List all built-in template identifiers
 pub fn list_builtin_template_ids() -> Vec<&'static str> {
-    vec!["daily_standup", "standard_meeting"]
+    vec!["daily_journal", "reflection", "daily_standup", "standard_meeting"]
 }
 
 #[cfg(test)]
@@ -58,6 +68,8 @@ mod tests {
 
     #[test]
     fn test_get_builtin_template() {
+        assert!(get_builtin_template("daily_journal").is_some());
+        assert!(get_builtin_template("reflection").is_some());
         assert!(get_builtin_template("daily_standup").is_some());
         assert!(get_builtin_template("standard_meeting").is_some());
         assert!(get_builtin_template("nonexistent").is_none());

@@ -53,10 +53,10 @@ export const AISummary = ({ summary, status, error, onSummaryChange, onRegenerat
   const currentSummary = useMemo(() => {
     if (!summary) {
       return {
-        Agenda: { title: "Agenda", blocks: [] },
-        Decisions: { title: "Decisions", blocks: [] },
-        ActionItems: { title: "Action Items", blocks: [] },
-        ClosingRemarks: { title: "Closing Remarks", blocks: [] }
+        EntrySummary: { title: "Entry Summary", blocks: [] },
+        HowYouFelt: { title: "How You Felt", blocks: [] },
+        ExperiencesMoments: { title: "Experiences & Moments", blocks: [] },
+        ReflectionPrompts: { title: "Reflection Prompts", blocks: [] }
       };
     }
     return ensureUniqueBlockIds(summary);

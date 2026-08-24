@@ -8,12 +8,12 @@ static ANALYTICS_CLIENT: std::sync::Mutex<Option<Arc<AnalyticsClient>>> = std::s
 
 #[command]
 pub async fn init_analytics() -> Result<(), String> {
-    let config = AnalyticsConfig {
-        api_key: "phc_Aa9PqeCkDkVbtbRsYjtmHANBfcscjCVupxZwrtL5vZ77".to_string(),
-        host: Some("https://us.i.posthog.com".to_string()),
-        enabled: true,
-    };
-    
+    // PRIVACY HARDENING: no API key, no host, analytics disabled.
+    // AnalyticsClient is a guaranteed no-op shell (see analytics.rs) — it is
+    // kept only so the existing track_* commands keep returning Ok instead of
+    // erroring in the UI. Nothing is ever sent anywhere.
+    let config = AnalyticsConfig::default();
+
     let client = Arc::new(AnalyticsClient::new(config).await);
     
     let mut guard = ANALYTICS_CLIENT.lock().unwrap();

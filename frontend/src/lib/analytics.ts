@@ -1,5 +1,12 @@
 import { invoke } from '@tauri-apps/api/core';
 
+// PRIVACY HARDENING (Atman Journal): analytics is permanently disabled.
+// The entry points below early-return before any invoke(), so `initialized`
+// can never become true and every guarded track* method is a no-op. The Rust
+// side is additionally a no-op shell with no telemetry client (posthog removed),
+// so even a stray invoke() could not produce network traffic.
+const ANALYTICS_DISABLED: boolean = true;
+
 export interface AnalyticsProperties {
   [key: string]: string;
 }
@@ -27,6 +34,11 @@ export class Analytics {
   private static deviceInfo: DeviceInfo | null = null;
 
   static async init(): Promise<void> {
+    // No-op: analytics permanently disabled.
+    if (ANALYTICS_DISABLED) {
+      return;
+    }
+
     // Prevent duplicate initialization
     if (this.initialized) {
       return;
@@ -42,6 +54,10 @@ export class Analytics {
   }
 
   private static async doInit(): Promise<void> {
+    if (ANALYTICS_DISABLED) {
+      return;
+    }
+
     try {
       await invoke('init_analytics');
       this.initialized = true;
@@ -55,6 +71,13 @@ export class Analytics {
   }
 
   static async disable(): Promise<void> {
+    if (ANALYTICS_DISABLED) {
+      this.initialized = false;
+      this.currentUserId = null;
+      this.initializationPromise = null;
+      return;
+    }
+
     try {
       await invoke('disable_analytics');
       this.initialized = false;
@@ -67,6 +90,10 @@ export class Analytics {
   }
 
   static async isEnabled(): Promise<boolean> {
+    if (ANALYTICS_DISABLED) {
+      return false;
+    }
+
     try {
       return await invoke('is_analytics_enabled');
     } catch (error) {
@@ -76,6 +103,10 @@ export class Analytics {
   }
 
   static async track(eventName: string, properties?: AnalyticsProperties): Promise<void> {
+    if (ANALYTICS_DISABLED) {
+      return;
+    }
+
     if (!this.initialized) {
       console.warn('Analytics not initialized');
       return;
@@ -89,6 +120,10 @@ export class Analytics {
   }
 
   static async identify(userId: string, properties?: AnalyticsProperties): Promise<void> {
+    if (ANALYTICS_DISABLED) {
+      return;
+    }
+
     if (!this.initialized) {
       console.warn('Analytics not initialized');
       return;
@@ -104,6 +139,10 @@ export class Analytics {
 
   // Enhanced user tracking methods for Phase 1
   static async startSession(userId: string): Promise<string | null> {
+    if (ANALYTICS_DISABLED) {
+      return null;
+    }
+
     if (!this.initialized) {
       console.warn('Analytics not initialized');
       return null;
@@ -629,6 +668,11 @@ export class Analytics {
 
   // Wait for analytics to be initialized
   static async waitForInitialization(timeout: number = 5000): Promise<boolean> {
+    // Analytics disabled: never initialized, and never worth waiting for.
+    if (ANALYTICS_DISABLED) {
+      return false;
+    }
+
     if (this.initialized) {
       return true;
     }

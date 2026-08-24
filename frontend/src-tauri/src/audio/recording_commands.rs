@@ -172,7 +172,14 @@ pub async fn start_recording_with_meeting_name<R: Runtime>(
     };
 
     // ============================================================================
-    // SYSTEM AUDIO DEVICE RESOLUTION: Preference → Default → None (optional)
+    // SYSTEM AUDIO DEVICE RESOLUTION: Explicit preference → device (with default
+    // fallback), No preference → None.
+    //
+    // PRIVACY DEFAULT (Atman Journal): journaling only needs the microphone.
+    // Unless the user has explicitly saved a system-audio preference, we do NOT
+    // capture system audio (on macOS that path requires the screen-recording
+    // permission). AudioStreamManager::start_streams tolerates system = None and
+    // only errors if the microphone is also unavailable.
     // ============================================================================
     let system_device = match preferred_system_name {
         Some(pref_name) => {
@@ -200,18 +207,8 @@ pub async fn start_recording_with_meeting_name<R: Runtime>(
             }
         }
         None => {
-            info!("🔊 No system audio preference set, using system default");
-            match default_output_device() {
-                Ok(device) => {
-                    info!("✅ Using default system audio: '{}'", device.name);
-                    Some(Arc::new(device))
-                }
-                Err(e) => {
-                    warn!("⚠️ No default system audio available: {}", e);
-                    warn!("   Recording will continue with microphone only");
-                    None // System audio is optional
-                }
-            }
+            info!("🔊 No system audio preference set — recording microphone only (privacy default)");
+            None
         }
     };
 

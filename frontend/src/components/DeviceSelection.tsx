@@ -344,7 +344,8 @@ export function DeviceSelection({ selectedDevices, onDeviceChange, disabled = fa
               <SelectValue placeholder="Select System Audio" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="default">Default System Audio</SelectItem>
+              {/* Privacy default: no explicit choice = no system audio capture */}
+              <SelectItem value="default">Off (microphone only)</SelectItem>
               {outputDevices.map((device) => (
                 <SelectItem
                   key={device.name}
